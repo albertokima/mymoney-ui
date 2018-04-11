@@ -1,1 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  color: #404C51;
+}
+
+label, button{
+  font-weight: bold;
+}
+
+@media (min-width: 1300px){
+  .container{
+    width: 1270px;
+    margin: 0 auto;
+  }
+}
+
+.col-data{
+  width: 120px;
+  text-align: center;
+}
+
+.col-valor{
+  width: 120px;
+  text-align: right;
+}
+
+.col-acoes{
+  width: 90px;
+  text-align: center;
+}
+
+a {
+  color: #2399e5;
+  text-decoration-line: none;
+}
+
+.ui-dropdown-filter-container {
+  width: 100%;
+}
+
+.overlay {
+  background-color:#EFEFEF;
+  position: relative;
+  width: auto;
+  height: auto;
+  z-index: 1000;
+  opacity: .7; /* in FireFox */
+  filter: alpha(opacity=70); /* in IE */
+  pointer-events: none;
+}
+
+.center-div {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 360px;
+  max-height: 360px;
+  background-color: transparent;
+}

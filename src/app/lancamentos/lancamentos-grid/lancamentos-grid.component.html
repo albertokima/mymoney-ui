@@ -1,0 +1,29 @@
+<p-dataTable [value]="lancamentos" [responsive]="true" emptyMessage="Nenhum lançamento encontrado"
+    [paginator]="true" [rows]="linhas" [lazy]="true" [totalRecords]="totalRegistros"
+    (onLazyLoad)="aoMudarPagina($event)" [pageLinks]="3" #tabela>
+  <p-column field="pessoa" header="Pessoa" styleClass="" sortable="true"></p-column>
+  <p-column field="descricao" header="Descrição" styleClass="" sortable="true"></p-column>
+  <p-column field="dataVencimento" header="Vencimento" styleClass="col-data" sortable="true">
+    <ng-template let-lanc="rowData" pTemplate="body">
+      {{lanc.dataVencimento | date:'dd/MM/y'}}
+    </ng-template>
+  </p-column>
+  <p-column field="dataPagamento" header="Pagamento" styleClass="col-data">
+    <ng-template let-lanc="rowData" pTemplate="body">
+        {{lanc.dataPagamento | date:'dd/MM/y'}}
+      </ng-template>
+    </p-column>
+  <p-column field="valor" header="Valor" styleClass="col-valor">
+    <ng-template let-lanc="rowData" pTemplate="body">
+      <span [style.color]="lanc.tipo==='RECEITA'?'green':'red'">{{lanc.valor | number:'1.2-2'}}</span>
+    </ng-template>
+  </p-column>
+  <p-column styleClass="col-acoes">
+    <ng-template let-lanc="rowData" pTemplate="body">
+      <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top"
+        [routerLink]="['/lancamentos', lanc.codigo]"></a>
+      <button pButton icon="fa-trash" (click)="aoExcluir(lanc)"
+        pTooltip="Excluir" tooltipPosition="top" [disabled]="!util.podeExcluirLancamento()"></button>
+    </ng-template>
+  </p-column>
+</p-dataTable>

@@ -1,0 +1,19 @@
+<div class="navbar">
+  <div class="container">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <a href="javascript:;" (click)="mostrarMenu = !mostrarMenu"><i class="fa fa-bars fa-inverse"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul class="navbar-menu" [hidden]="!mostrarMenu">
+  <li class="navbar-imagem"><img src="https://randomuser.me/api/portraits/men/1.jpg"></li>
+  <li class="navbar-usuario">{{ nomeUsuario }}</li>
+  <li class="navbar-item" routerLinkActive="ativo"
+    *ngIf="menuLancamentos"><a [routerLink]="linkLancamentos" (click)="mostrarMenu = false"><i class="fa fa-th-list fa-inverse"><span>Lançamentos</span></i></a></li>
+  <li class="navbar-item" routerLinkActive="ativo"
+    *ngIf="menuPessoas"><a [routerLink]="linkPessoas" (click)="mostrarMenu = false"><i class="fa fa-users fa-inverse"><span>Pessoas</span></i></a></li>
+  <li class="navbar-item"><a href="javascript:;" (click)="logout()"><i class="fa fa-sign-out fa-inverse"><span>Sair</span></i></a></li>
+</ul>

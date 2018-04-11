@@ -1,0 +1,88 @@
+<div class="container">
+  <form #lancamentoForm="ngForm" autocomplete="off" (ngSubmit)="salvar(lancamentoForm)">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>{{ titulo }}</h1>
+      </div>
+      <div class="ui-g" [ngClass]="{'overlay': isOverlayVisible }">
+        <div class="ui-g-12 ui-md-2 ui-fluid" [hidden]="true">
+          <label>Código</label>
+          <input pInputText type="text" [value]="lancamento.codigo" [readOnly]="true">
+        </div>
+        <div class="ui-g-12">
+          <p-selectButton [options]="tipos" name="tipo" #tipo="ngModel"
+            [(ngModel)]="lancamento.tipo" required="true"></p-selectButton>
+        </div>
+        <div class="ui-g-12 ui-md-3 ui-fluid">
+          <label>Vencimento</label>
+          <p-calendar dateFormat="dd/mm/yy" name="dataVencimento" showIcon="true"
+            readonlyInput="true" showButtonBar="true" [showOnFocus]="true"
+            #vencimento="ngModel" required="true"
+            [(ngModel)]="lancamento.dataVencimento">
+          </p-calendar>
+
+          <app-message [control]="vencimento" error="required"
+            touched="true" text="Informe o vencimento">
+          </app-message>
+        </div>
+        <div class="ui-g-12 ui-md-3 ui-fluid">
+          <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
+          <p-calendar dateFormat="dd/mm/yy" showIcon="true" readonlyInput="true"
+            showButtonBar="true" [showOnFocus]="true" name="dataPagamento"
+            #pagamento="ngModel" [(ngModel)]="lancamento.dataPagamento">
+          </p-calendar>
+        </div>
+        <div class="ui-g-12 ui-md-9 ui-fluid">
+          <label>Descrição</label>
+          <input pInputText type="text" name="descricao" #descricao="ngModel"
+            required="true" minlength="5" [(ngModel)]="lancamento.descricao" >
+
+          <app-message [control]="descricao" error="required"
+            text="Informe uma descrição"></app-message>
+          <app-message [control]="descricao" error="minlength"
+            text="Informe no mínimo {{descricao.errors?.minlength?.requiredLength}} caracteres"></app-message>
+        </div>
+        <div class="ui-g-12 ui-md-3 ui-fluid">
+          <label>Valor</label>
+          <input pInputText type="text" placeholder="0,00" name="valor"
+            #valor="ngModel" required="true" [(ngModel)]="lancamento.valor"
+            currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }">
+
+          <app-message [control]="valor" error="required" touched="true"
+            text="Informe um valor"></app-message>
+        </div>
+        <div class="ui-g-12 ui-md-6 ui-fluid">
+          <label>Categoria</label>
+          <p-dropdown [options]="categorias" placeholder="Selecione" [autoWidth]="false"
+          name="categoria" #categoria="ngModel" required="true"
+          [(ngModel)]="lancamento.categoria.codigo"></p-dropdown>
+
+          <app-message [control]="categoria" error="required" touched="true"
+            text="Informe uma categoria"></app-message>
+      </div>
+        <div class="ui-g-12 ui-md-6 ui-fluid">
+          <label>Pessoa</label>
+          <p-dropdown [options]="pessoas" placeholder="Selecione" [autoWidth]="false"
+            [filter]="true" name="pessoa" #pessoa="ngModel" required="true"
+            [(ngModel)]="lancamento.pessoa.codigo" ></p-dropdown>
+
+          <app-message [control]="pessoa" error="required" touched="true"
+            text="Informe uma pessoa"></app-message>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label>Observação</label>
+          <textarea pInputTextarea rows="3" maxlength="300"
+            name="observacao" #observacao="ngModel"
+            [(ngModel)]="lancamento.observacao"></textarea>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <button pButton label="Salvar" class="ui-button-success" type="submit" icon="fa fa-save"
+          [disabled]="lancamentoForm.invalid || isOverlayVisible"></button>
+        <button pButton label="Novo" type="button" icon="fa fa-file"
+          (click)="novo(lancamentoForm)"></button>
+        <a routerLink="/lancamentos">Voltar para a pesquisa</a>
+      </div>
+    </div>
+  </form>
+</div>
