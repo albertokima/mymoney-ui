@@ -65,18 +65,18 @@ export class AuthService {
 
   private armazenarToken(token: string) {
     this.jwtPayload = this.jwtHelper.decodeToken(token);
-    localStorage.setItem('token', token);
+    localStorage.setItem('mytoken', token);
   }
 
   protected carregarToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('mytoken');
     if (token) {
       this.armazenarToken(token);
     }
   }
 
   public limparToken() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('mytoken');
     this.jwtPayload = null;
   }
 
@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   isAccessTokenInvalido(): boolean {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('mytoken');
 
     return !token || this.jwtHelper.isTokenExpired(token);
   }

@@ -47,7 +47,6 @@ export class PessoasGridComponent {
     this.onDelete.emit(pessoa);
   }
 
-  // para ancora(<a>) importante ter retorno void explicito
   aoMudarStatus(pessoa) {
     this.onChangeStatus.emit(pessoa);
   }

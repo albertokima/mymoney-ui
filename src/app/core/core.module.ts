@@ -1,10 +1,12 @@
 import { AuthService } from './../seguranca/auth.service';
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import localePt from '@angular/common/locales/pt';
 
-import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
-import { ConfirmationService } from 'primeng/components/common/confirmationservice';
+import { SidebarModule } from 'primeng/sidebar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { ToastyModule } from 'ng2-toasty';
 import { JwtHelper } from 'angular2-jwt';
 
@@ -18,18 +20,23 @@ import { CategoriaService } from './../categorias/categoria.service';
 import { ErrorHandlerService } from './error-handler.service';
 import { Title } from '@angular/platform-browser';
 import { UtilService } from './util.service';
+import { LogoutComponent } from './logout.component';
+
+registerLocaleData(localePt);
 
 @NgModule({
   imports: [
     CommonModule,
     ToastyModule.forRoot(),
+    SidebarModule,
     ConfirmDialogModule,
     RouterModule,
   ],
   declarations: [
     NavbarComponent,
     PaginaNaoEncontradaComponent,
-    PaginaNaoAutorizadaComponent
+    PaginaNaoAutorizadaComponent,
+    LogoutComponent
   ],
   exports: [
     NavbarComponent,
@@ -47,7 +54,7 @@ import { UtilService } from './util.service';
 
     Title,
     ConfirmationService,
-    { provide: LOCALE_ID, useValue: 'pt-BR' }
+    { provide: LOCALE_ID, useValue: 'pt' }
   ]
 })
 export class CoreModule { }

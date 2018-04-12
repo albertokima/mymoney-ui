@@ -13,6 +13,7 @@ import { ErrorHandlerService } from '../error-handler.service';
 })
 export class NavbarComponent implements OnInit {
 
+  display = false;
   mostrarMenu = false;
   nomeUsuario = 'Convidado';
   menuLancamentos = false;

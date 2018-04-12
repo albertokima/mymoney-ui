@@ -2,18 +2,20 @@
   <div class="container">
     <div class="ui-g">
       <div class="ui-g-12">
-        <a href="javascript:;" (click)="mostrarMenu = !mostrarMenu"><i class="fa fa-bars fa-inverse"></i></a>
+        <button type="button" (click)="display = true" pButton icon="fa fa-bars fa-inverse" label="Menu"></button>
       </div>
     </div>
   </div>
 </div>
 
-<ul class="navbar-menu" [hidden]="!mostrarMenu">
-  <li class="navbar-imagem"><img src="https://randomuser.me/api/portraits/men/1.jpg"></li>
-  <li class="navbar-usuario">{{ nomeUsuario }}</li>
-  <li class="navbar-item" routerLinkActive="ativo"
-    *ngIf="menuLancamentos"><a [routerLink]="linkLancamentos" (click)="mostrarMenu = false"><i class="fa fa-th-list fa-inverse"><span>Lançamentos</span></i></a></li>
-  <li class="navbar-item" routerLinkActive="ativo"
-    *ngIf="menuPessoas"><a [routerLink]="linkPessoas" (click)="mostrarMenu = false"><i class="fa fa-users fa-inverse"><span>Pessoas</span></i></a></li>
-  <li class="navbar-item"><a href="javascript:;" (click)="logout()"><i class="fa fa-sign-out fa-inverse"><span>Sair</span></i></a></li>
-</ul>
+<p-sidebar [(visible)]="display" position="right" [blockScroll]="true">
+  <ul class="navbar-menu" [hidden]="false">
+    <li class="navbar-imagem"><img src="https://randomuser.me/api/portraits/men/1.jpg"></li>
+    <li class="navbar-usuario">{{ nomeUsuario }}</li>
+    <li class="navbar-item" routerLinkActive="ativo"
+      *ngIf="menuLancamentos"><a [routerLink]="linkLancamentos" (click)="display = false"><i class="fa fa-th-list fa-inverse"><span>Lançamentos</span></i></a></li>
+    <li class="navbar-item" routerLinkActive="ativo"
+      *ngIf="menuPessoas"><a [routerLink]="linkPessoas" (click)="display = false"><i class="fa fa-users fa-inverse"><span>Pessoas</span></i></a></li>
+    <li class="navbar-item"><a href="javascript:;" (click)="logout()"><i class="fa fa-sign-out fa-inverse"><span>Sair</span></i></a></li>
+  </ul>
+</p-sidebar>

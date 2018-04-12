@@ -1,23 +1,42 @@
-<p-dataTable [value]="pessoas" [responsive]="true" emptyMessage="Nenhuma pessoa encontrada"
+<p-table [value]="pessoas" [responsive]="true"
     [paginator]="true" [rows]="itensPorLinha" [lazy]="true" [totalRecords]="totalRegistros"
-    (onLazyLoad)="aoCarregar($event)" [pageLinks]="3" #tabela>
-  <p-column field="nome" header="Nome" [sortable]="true"></p-column>
-  <p-column field="endereco.cidade" header="Cidade"></p-column>
-  <p-column field="endereco.estado" header="Estado" styleClass="col-data"></p-column>
-  <p-column field="ativo" header="Situação" styleClass="col-data">
-    <ng-template let-pes="rowData" pTemplate="body">
-      <a href="javascript:;" [ngStyle]="getEstilosAtivo(pes.ativo)" (click)="aoMudarStatus(pes);"
-        [pTooltip]="pes.ativo ? 'Inativar' : 'Ativar'" tooltipPosition="top">
+    (onLazyLoad)="aoCarregar($event)" [pageLinks]="3" #tabela sortField="codigo">
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="nome">
+        Nome
+        <p-sortIcon field="nome"></p-sortIcon>
+      </th>
+      <th>Cidade</th>
+      <th class="col-data">Estado</th>
+      <th class="col-data">Situação</th>
+      <th class="col-acoes"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-pes>
+    <tr>
+      <td>{{ pes.nome }}</td>
+      <td>{{ pes.endereco.cidade }}</td>
+      <td class="col-data">{{ pes.endereco.estado }}</td>
+      <td class="col-data">
+        <a href="javascript:;" [ngStyle]="getEstilosAtivo(pes.ativo)" (click)="aoMudarStatus(pes);"
+            [pTooltip]="pes.ativo ? 'Inativar' : 'Ativar'" tooltipPosition="top">
           {{pes.ativo ? 'ativo' : 'inativo'}}
-      </a>
-    </ng-template>
-  </p-column>
-  <p-column styleClass="col-acoes">
-    <ng-template let-pes="rowData" pTemplate="body">
-      <a pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"
-        [routerLink]="['/pessoas', pes.codigo]"></a>
-      <button pButton icon="fa fa-trash" (click)="aoExcluir(pes)"
-        pTooltip="Excluir" tooltipPosition="top" [disabled]="!util.podeExcluirPessoa()"></button>
-    </ng-template>
-  </p-column>
-</p-dataTable>
+        </a>
+      </td>
+      <td class="col-acoes">
+        <button pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"
+          [routerLink]="['/pessoas', pes.codigo]">
+        </button>
+        <button pButton icon="fa fa-trash" (click)="aoExcluir(pes)"
+          pTooltip="Excluir" tooltipPosition="top" [disabled]="!util.podeExcluirPessoa()">
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colSpan="5">Nenhuma pessoa encontrada</td>
+    </tr>
+  </ng-template>
+</p-table>

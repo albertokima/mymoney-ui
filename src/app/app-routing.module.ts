@@ -7,11 +7,16 @@ import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/l
 import { LancamentosPesquisaComponent } from './lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 import { PaginaNaoAutorizadaComponent } from './core/pagina-nao-autorizada.component';
+import { LogoutComponent } from './core/logout.component';
 
 const routes: Routes = [
+  {path: 'lancamentos', loadChildren: 'app/lancamentos/lancamentos.module#LancamentosModule'},
+  {path: 'pessoas', loadChildren: 'app/pessoas/pessoas.module#PessoasModule'},
+
   {path: '', redirectTo: 'lancamentos', pathMatch: 'full'},
   {path: 'erro-404', component: PaginaNaoEncontradaComponent},
   {path: 'acesso-negado', component: PaginaNaoAutorizadaComponent},
+  {path: 'logout', component: LogoutComponent},
   {path: '**', redirectTo: 'erro-404'},
 ];
 

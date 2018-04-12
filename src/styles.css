@@ -21,9 +21,18 @@ label, button{
   text-align: center;
 }
 
+.col-data-sort{
+  width: 140px;
+  text-align: center;
+}
+
 .col-valor{
   width: 120px;
   text-align: right;
+}
+
+.col-valor-header{
+  width: 120px;
 }
 
 .col-acoes{
@@ -61,4 +70,8 @@ a {
   max-width: 360px;
   max-height: 360px;
   background-color: transparent;
+}
+
+.ui-sidebar-right {
+  width: 0;
 }
