@@ -72,6 +72,15 @@ a {
   background-color: transparent;
 }
 
+.ui-sidebar {
+  background-color: dimgrey;
+}
+
 .ui-sidebar-right {
-  width: 0;
+  background-color: dimgrey;
+  width: 210px;
+}
+
+.ui-sidebar-close {
+  display: none;
 }

@@ -46,4 +46,15 @@ export class NavbarComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
+  sidebar(show: boolean) {
+    this.display = show;
+    if (show) {
+      this.mostrarMenu = true;
+    }
+  }
+
+  sidebarOnHide() {
+    this.mostrarMenu = false;
+  }
+
 }

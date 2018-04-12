@@ -1,7 +1,7 @@
 .navbar {
   background: #2399e5;
   padding: 10px 0;
-  z-index: 9997;
+  /* z-index: 9997; */
 }
 
 .navbar-menu {
@@ -13,7 +13,7 @@
   width: 210px;
   margin: 0;
   padding: 0;
-  z-index: 9998;
+  /* z-index: 9998; */
   list-style: none;
 }
 

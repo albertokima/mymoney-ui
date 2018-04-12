@@ -2,20 +2,21 @@
   <div class="container">
     <div class="ui-g">
       <div class="ui-g-12">
-        <button type="button" (click)="display = true" pButton icon="fa fa-bars fa-inverse" label="Menu"></button>
+        <button type="button" (click)="sidebar(true)" pButton icon="fa fa-bars fa-inverse" label="Menu"></button>
       </div>
     </div>
   </div>
 </div>
 
-<p-sidebar [(visible)]="display" position="right" [blockScroll]="true">
-  <ul class="navbar-menu" [hidden]="false">
+<p-sidebar [(visible)]="display" position="right" [blockScroll]="true"
+    (onHide)="sidebarOnHide()">
+  <ul class="navbar-menu" [hidden]="!mostrarMenu">
     <li class="navbar-imagem"><img src="https://randomuser.me/api/portraits/men/1.jpg"></li>
     <li class="navbar-usuario">{{ nomeUsuario }}</li>
     <li class="navbar-item" routerLinkActive="ativo"
-      *ngIf="menuLancamentos"><a [routerLink]="linkLancamentos" (click)="display = false"><i class="fa fa-th-list fa-inverse"><span>Lançamentos</span></i></a></li>
+      *ngIf="menuLancamentos"><a [routerLink]="linkLancamentos" (click)="sidebar(false)"><i class="fa fa-th-list fa-inverse"><span>Lançamentos</span></i></a></li>
     <li class="navbar-item" routerLinkActive="ativo"
-      *ngIf="menuPessoas"><a [routerLink]="linkPessoas" (click)="display = false"><i class="fa fa-users fa-inverse"><span>Pessoas</span></i></a></li>
+      *ngIf="menuPessoas"><a [routerLink]="linkPessoas" (click)="sidebar(false)"><i class="fa fa-users fa-inverse"><span>Pessoas</span></i></a></li>
     <li class="navbar-item"><a href="javascript:;" (click)="logout()"><i class="fa fa-sign-out fa-inverse"><span>Sair</span></i></a></li>
   </ul>
 </p-sidebar>
