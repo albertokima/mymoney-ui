@@ -1,0 +1,81 @@
+<p-card>
+    <p-header>
+      <h3 style="margin: 0; padding: .25em .5em; background-color: #2399e5; color: white">
+        Lista de Contatos
+      </h3>
+    </p-header>
+    <p-table [responsive]="true" [value]="contatos" #tabela>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Telefone</th>
+          <th class="col-acoes"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-contato let-index="rowIndex">
+        <tr>
+          <td>{{ contato.nome }}</td>
+          <td>{{ contato.email }}</td>
+          <td>{{ contato.telefone }}</td>
+          <td class="col-acoes">
+            <button pButton type="button" icon="fa fa-pencil"
+              pTooltip="Editar" tooltipPosition="top"
+              (click)="editarContato(contato, index)"></button>
+
+            <button pButton type="button" icon="fa fa-trash"
+              pTooltip="Excluir" tooltipPosition="top"
+              (click)="removerContato(index)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr><td colSpan="4">Nenhum contato cadastrado</td></tr>
+      </ng-template>
+    </p-table>
+    <p-footer>
+      <button pButton type="button" label="Novo" icon="fa fa-plus"
+        class="ui-button-secondary" (click)="novoContato()"></button>
+    </p-footer>
+
+  </p-card>
+
+  <p-dialog [blockScroll]="true" [modal]="true" *ngIf="contato"
+      [header]="editando ? 'Edição Contato' : 'Novo Contato'"
+      [(visible)]="showDialog" [autoAlign]="true"
+      [responsive]="true" [resizable]="false" (onHide)="form.reset()">
+    <form #form="ngForm" (ngSubmit)="confirmar()">
+      <div class="ui-g-12 ui-fluid">
+        <label>Nome</label>
+        <input pInputText name="nome" #nome="ngModel" [(ngModel)]="contato.nome"
+          type="text" required="true">
+
+        <app-message [control]="nome" error="required" text="Informe o nome"></app-message>
+      </div>
+      <div class="ui-g-12 ui-fluid">
+          <label>E-mail</label>
+          <input pInputText name="email" #email="ngModel" [(ngModel)]="contato.email"
+            type="email" email="true" required="true">
+
+          <app-message [control]="email" error="required" text="Informe o e-mail"></app-message>
+          <app-message [control]="email" error="email" text="Informe um e-mail válido"
+            *ngIf="email.value"></app-message>
+        </div>
+      <div class="ui-g-12 ui-fluid">
+        <label>Telefone</label>
+        <p-inputMask #telefone="ngModel" name="telefone" [(ngModel)]="contato.telefone"
+          mask="(99) 99999-999?9" [unmask]="false" [pattern]="ccRegex">
+        </p-inputMask>
+
+        <app-message [control]="telefone" error="pattern" text="Informe o telefone"></app-message>
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" icon="fa fa-check" label="Confirmar"
+          [disabled]="form.invalid"></button>
+        <button pButton type="button" icon="fa fa-close" label="Cancelar" class="ui-button-danger"
+          (click)="showDialog = false;"></button>
+      </div>
+
+    </form>
+  </p-dialog>

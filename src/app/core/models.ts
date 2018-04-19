@@ -1,8 +1,16 @@
+export class Contato {
+  codigo: number;
+  nome: string;
+  email: string;
+  telefone: string;
+}
+
 export class Pessoa {
   codigo: number;
   nome: string;
   ativo = true;
   endereco = new Endereco();
+  contatos = new Array<Contato>();
 }
 
 export class Endereco {
@@ -30,4 +38,6 @@ export class Lancamento {
   observacao: string;
   categoria = new Categoria();
   pessoa = new Pessoa();
+  anexo: string;
+  urlAnexo: string;
 }

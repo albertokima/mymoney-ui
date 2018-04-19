@@ -1,15 +1,15 @@
 <div class="container">
   <div class="ui-g">
-    <form autocomplete="off" (ngSubmit)="pesquisar()">
+    <form autocomplete="off" (ngSubmit)="pesquisar()" class="ui-g-12">
       <div class="ui-g-12">
         <h1>Pessoas</h1>
       </div>
-      <div class="ui-g-12 ui-fluid">
+      <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Nome</label>
         <input type="text" pInputText [autofocus]="true" name="nome" [(ngModel)]="filtro.nome">
       </div>
       <div class="ui-g-12">
-        <button type="submit" pButton label="Pesquisar"></button>
+        <button type="submit" pButton label="Pesquisar" icon="fa fa-search"></button>
       </div>
     </form>
   </div>

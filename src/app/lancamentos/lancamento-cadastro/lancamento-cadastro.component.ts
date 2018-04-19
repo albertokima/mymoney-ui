@@ -1,13 +1,16 @@
 import { Title } from '@angular/platform-browser';
-import { ToastyService } from 'ng2-toasty';
-import { LancamentoService } from './../lancamento.service';
-import { Lancamento } from './../../core/models';
-import { ErrorHandlerService } from './../../core/error-handler.service';
-import { PessoaService } from './../../pessoas/pessoa.service';
-import { CategoriaService } from './../../categorias/categoria.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { ToastyService } from 'ng2-toasty';
+
+import { Lancamento } from './../../core/models';
+import { LancamentoService } from './../lancamento.service';
+import { PessoaService } from './../../pessoas/pessoa.service';
+import { CategoriaService } from './../../categorias/categoria.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
+import { UtilService } from './../../core/util.service';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -26,17 +29,22 @@ export class LancamentoCadastroComponent implements OnInit {
   valor: number;
   lancamento = new Lancamento();
   isOverlayVisible = false;
+  uploadEmAndamento = false;
+  pt: any;
 
   constructor(
     private categoriaService: CategoriaService,
     private pessoaService: PessoaService,
     private lancamentoService: LancamentoService,
+    private util: UtilService,
     private route: ActivatedRoute,
     private router: Router,
     private title: Title,
     private toasty: ToastyService,
     private errorHandler: ErrorHandlerService
-  ) { }
+  ) {
+    this.pt = util.retornaLocalePt();
+  }
 
   ngOnInit() {
     const codigoLancamento = this.route.snapshot.params['codigo'];
@@ -49,15 +57,11 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   get titulo(): string {
-    let titulo: string;
+    let titulo = 'Novo Lançamento';
     if (this.editando) {
-      if (this.isOverlayVisible) {
-        titulo = `Lançamento nr.: ${this.lancamento.codigo}`;
-      } else {
+      if (!this.isOverlayVisible) {
         titulo = 'Edição de Lançamento';
       }
-    } else {
-      titulo = 'Novo Lançamento';
     }
     this.title.setTitle(titulo);
 
@@ -66,6 +70,40 @@ export class LancamentoCadastroComponent implements OnInit {
 
   get editando() {
     return Boolean(this.lancamento.codigo);
+  }
+
+  get urlLancamentoAnexo() {
+    return this.lancamentoService.urlLancamentoAnexo();
+  }
+
+  get nomeArquivoAnexo() {
+    const nome = this.lancamento.anexo;
+    return nome.substr(nome.indexOf('_') + 1);
+  }
+
+  antesEnviarAnexo(evento) {
+    this.uploadEmAndamento = true;
+
+    evento.xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('mytoken')}`)
+  }
+
+  depoisEnviarAnexo(evento) {
+    this.uploadEmAndamento = false;
+
+    const response = JSON.parse(evento.xhr.response);
+    this.lancamento.anexo = response.nome;
+    this.lancamento.urlAnexo = response.url;
+  }
+
+  erroUpload(evento) {
+    this.uploadEmAndamento = false;
+
+    this.toasty.error('Erro ao enviar anexo!');
+  }
+
+  removerAnexo() {
+    this.lancamento.anexo = null;
+    this.lancamento.urlAnexo = null;
   }
 
   private carregarLancamento(codigo: number) {
@@ -79,7 +117,7 @@ export class LancamentoCadastroComponent implements OnInit {
   novo(form: FormControl) {
     form.reset();
 
-    setTimeout(function(){
+    setTimeout(function() {
       this.lancamento = new Lancamento();
       this.isOverlayVisible = false;
     }.bind(this), 1);

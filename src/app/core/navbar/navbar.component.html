@@ -13,10 +13,14 @@
   <ul class="navbar-menu" [hidden]="!mostrarMenu">
     <li class="navbar-imagem"><img src="https://randomuser.me/api/portraits/men/1.jpg"></li>
     <li class="navbar-usuario">{{ nomeUsuario }}</li>
+    <li class="navbar-item" routerLinkActive="ativo">
+      <a routerLink="/dashboard" (click)="sidebar(false)"><i class="fa fa-home fa-inverse"><span>Dashboard</span></i></a></li>
     <li class="navbar-item" routerLinkActive="ativo"
       *ngIf="menuLancamentos"><a [routerLink]="linkLancamentos" (click)="sidebar(false)"><i class="fa fa-th-list fa-inverse"><span>Lançamentos</span></i></a></li>
     <li class="navbar-item" routerLinkActive="ativo"
       *ngIf="menuPessoas"><a [routerLink]="linkPessoas" (click)="sidebar(false)"><i class="fa fa-users fa-inverse"><span>Pessoas</span></i></a></li>
+    <li class="navbar-item" routerLinkActive="ativo"
+      *ngIf="menuRelatorios"><a [routerLink]="linkRelatorios" (click)="sidebar(false)"><i class="fa fa-files-o fa-inverse"><span>Relatórios</span></i></a></li>
     <li class="navbar-item"><a href="javascript:;" (click)="logout()"><i class="fa fa-sign-out fa-inverse"><span>Sair</span></i></a></li>
   </ul>
 </p-sidebar>

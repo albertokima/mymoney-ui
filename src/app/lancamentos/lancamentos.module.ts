@@ -9,6 +9,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
@@ -30,6 +32,8 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
     DropdownModule,
     InputMaskModule,
     CurrencyMaskModule,
+    FileUploadModule,
+    ProgressSpinnerModule,
 
     SharedModule,
     LancamentosRoutingModule,

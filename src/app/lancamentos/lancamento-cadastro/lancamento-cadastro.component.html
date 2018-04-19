@@ -17,7 +17,7 @@
           <label>Vencimento</label>
           <p-calendar dateFormat="dd/mm/yy" name="dataVencimento" showIcon="true"
             readonlyInput="true" showButtonBar="true" [showOnFocus]="true"
-            #vencimento="ngModel" required="true"
+            #vencimento="ngModel" required="true" [locale]="pt"
             [(ngModel)]="lancamento.dataVencimento">
           </p-calendar>
 
@@ -28,7 +28,7 @@
         <div class="ui-g-12 ui-md-3 ui-fluid">
           <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
           <p-calendar dateFormat="dd/mm/yy" showIcon="true" readonlyInput="true"
-            showButtonBar="true" [showOnFocus]="true" name="dataPagamento"
+            showButtonBar="true" [showOnFocus]="true" name="dataPagamento" [locale]="pt"
             #pagamento="ngModel" [(ngModel)]="lancamento.dataPagamento">
           </p-calendar>
         </div>
@@ -59,7 +59,7 @@
 
           <app-message [control]="categoria" error="required" touched="true"
             text="Informe uma categoria"></app-message>
-      </div>
+        </div>
         <div class="ui-g-12 ui-md-6 ui-fluid">
           <label>Pessoa</label>
           <p-dropdown [options]="pessoas" placeholder="Selecione" [autoWidth]="false"
@@ -75,10 +75,36 @@
             name="observacao" #observacao="ngModel"
             [(ngModel)]="lancamento.observacao"></textarea>
         </div>
+        <div class="ui-g-12" *ngIf="!lancamento.anexo">
+          <p-fileUpload accept="image/*,application/*" chooseLabel="Anexar"
+            cancelLabel="Cancelar" maxFileSize="100000000" name="anexo"
+            [url]="urlLancamentoAnexo" auto="auto" mode="basic"
+            [withCredentials]="true" (onBeforeSend)="antesEnviarAnexo($event)"
+            (onUpload)="depoisEnviarAnexo($event)" (onError)="erroUpload($event)"
+            [disabled]="uploadEmAndamento">
+          </p-fileUpload>
+          <p-progressSpinner [style]="{width: '25px', height: '25px'}"
+            strokeWidth="6" animationDuration=".5s" [hidden]="!uploadEmAndamento">
+          </p-progressSpinner>
+          <a href="#" [hidden]="!uploadEmAndamento"
+            style="position: fixed; margin-top: 8px; margin-left: 8px;">Aguarde...</a>
+        </div>
+        <div class="ui-g-12" *ngIf="lancamento.anexo">
+          <label>Anexo: </label>
+          <a target="_blank" [href]="lancamento.urlAnexo"
+            pTooltip="Download anexo" tooltipPosition="top">{{ nomeArquivoAnexo }}</a>
+          <button pButton type="button" icon="fa fa-close" pTooltip="Remover anexo"
+            tooltipPosition="top" (click)="removerAnexo()" class="ui-button-danger">
+          </button>
+        </div>
       </div>
       <div class="ui-g-12">
         <button pButton label="Salvar" class="ui-button-success" type="submit" icon="fa fa-save"
-          [disabled]="lancamentoForm.invalid || isOverlayVisible"></button>
+          [disabled]="lancamentoForm.invalid || isOverlayVisible || uploadEmAndamento"
+          *ngIf="!isOverlayVisible"></button>
+        <button pButton icon="fa-pencil" label="Editar" *ngIf="isOverlayVisible" type="button"
+          [routerLink]="['/lancamentos', lancamento.codigo]">
+        </button>
         <button pButton label="Novo" type="button" icon="fa fa-file"
           (click)="novo(lancamentoForm)"></button>
         <a routerLink="/lancamentos">Voltar para a pesquisa</a>

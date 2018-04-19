@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h1>Dashboard</h1>
+    </div>
+
+    <div class="ui-g-12 ui-md-6">
+      <p-card styleClass="ui-card-shadow">
+        <p-header>
+            <h2 style="margin-top: .5em; margin-bottom: 0; text-align: center">
+              Lançamentos por categoria
+            </h2>
+        </p-header>
+        <p-chart type="pie" [data]="pieChartData" [options]="optionsPie"></p-chart>
+      </p-card>
+    </div>
+
+    <div class="ui-g-12 ui-md-6">
+      <p-card styleClass="ui-card-shadow">
+          <p-header>
+              <h2 style="margin-top: .5em; margin-bottom: 0; text-align: center">
+                Lançamentos por dia
+              </h2>
+          </p-header>
+          <p-chart type="line" [data]="lineChartData" [options]="optionsLine"></p-chart>
+      </p-card>
+    </div>
+  </div>
+</div>

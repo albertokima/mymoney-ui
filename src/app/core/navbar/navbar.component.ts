@@ -18,8 +18,10 @@ export class NavbarComponent implements OnInit {
   nomeUsuario = 'Convidado';
   menuLancamentos = false;
   menuPessoas = false;
+  menuRelatorios = false;
   linkLancamentos = '/';
   linkPessoas = '/';
+  linkRelatorios = '/';
 
   constructor(
     private util: UtilService,
@@ -33,8 +35,10 @@ export class NavbarComponent implements OnInit {
     this.nomeUsuario = this.util.retornaNomeUsuario();
     this.menuLancamentos = this.util.mostraMenuLancamentos();
     this.menuPessoas = this.util.mostraMenuPessoas();
+    this.menuRelatorios = this.util.podePesquisarLancamento();
     this.linkLancamentos = this.util.retornaLinkLancamento();
     this.linkPessoas = this.util.retornaLinkPessoa();
+    this.linkRelatorios = this.util.retornaLinkRelatorio();
   }
 
   logout() {

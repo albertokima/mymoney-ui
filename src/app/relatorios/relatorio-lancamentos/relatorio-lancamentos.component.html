@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h1>Relatório de Lançamentos por Pessoa</h1>
+    </div>
+
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="gerar()" class="ui-g-12">
+      <div class="ui-g-12">
+        <label style="display: block">Vencimento</label>
+        <p-calendar dateFormat="dd/mm/yy" name="dataInicio" [(ngModel)]="dataInicio"
+          [inputStyle]="{'width':'120px'}" showButtonBar="true" [locale]="pt"
+          readonlyInput="true" required></p-calendar>
+        <label>até</label>
+        <p-calendar dateFormat="dd/mm/yy" name="dataFim" [(ngModel)]="dataFim"
+          [inputStyle]="{'width':'120px'}" showButtonBar="true" [locale]="pt"
+          readonlyInput="true" required></p-calendar>
+      </div>
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Gerar" icon="fa fa-file-pdf-o"
+          [disabled]="f.invalid"></button>
+      </div>
+    </form>
+  </div>
+</div>

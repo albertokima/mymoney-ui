@@ -1,12 +1,13 @@
 import { Title } from '@angular/platform-browser';
-import { ConfirmationService } from 'primeng/components/common/confirmationservice';
-import { element } from 'protractor';
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { ToastyService } from 'ng2-toasty';
+import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 
 import { LancamentoService } from './../lancamento.service';
 import { LancamentoFiltro } from './../../core/filters';
 import { ErrorHandlerService } from '../../core/error-handler.service';
+import { UtilService } from './../../core/util.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -20,6 +21,7 @@ export class LancamentosPesquisaComponent implements OnInit {
   filtro = new LancamentoFiltro();
   totalRegistros = 0;
   lancamentos = [];
+  pt: any;
 
   constructor (
     private lancamentoService: LancamentoService,
@@ -27,7 +29,10 @@ export class LancamentosPesquisaComponent implements OnInit {
     private confirmService: ConfirmationService,
     private errorHandler: ErrorHandlerService,
     private title: Title,
-  ) {}
+    private util: UtilService,
+  ) {
+    this.pt = util.retornaLocalePt();
+  }
 
   ngOnInit(): void {
     this.title.setTitle('Pesquisa de Lançamentos');

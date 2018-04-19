@@ -5,21 +5,26 @@
         <h1 [style.color]="'#2399e5'">Login</h1>
       </div>
       <div class="ui-g-12">
-        <input type="email" pInputText placeholder="E-mail" autofocus="true"
-          name="email" ngModel #email="ngModel" required="true">
-
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">@</span>
+          <input id="email-input" type="email" pInputText autofocus="true"
+            name="email" ngModel #email="ngModel" required="true"
+            placeholder="E-mail">
+        </div>
         <app-message [control]="email" error="required" text="Informe o e-mail"
           [touched]="true"></app-message>
       </div>
       <div class="ui-g-12">
-        <input type="password" pInputText placeholder="Senha"
-          name="senha" ngModel #senha="ngModel" required="true">
-
-          <app-message [control]="senha" error="required" text="Informe a senha"
-            [touched]="true"></app-message>
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-lock"></i></span>
+          <input id="senha-input" type="password" pInputText placeholder="Senha"
+            name="senha" ngModel #senha="ngModel" required="true">
+        </div>
+        <app-message [control]="senha" error="required" text="Informe a senha"
+          [touched]="true"></app-message>
       </div>
       <div class="ui-g-12">
-        <button pButton label="Login" icon="fa fa-lock" type="submit"
+        <button pButton label="Acessar" icon="fa fa-sign-in" type="submit"
           (click)="login(email.value, senha.value);" [disabled]="loginForm.invalid"></button>
       </div>
     </div>

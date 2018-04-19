@@ -69,10 +69,19 @@
           <app-message [control]="estado" error="required" text="Informe o estado"
             touched="true"></app-message>
         </div>
+
+        <div class="ui-g-12">
+          <app-pessoa-cadastro-contato [contatos]="pessoa.contatos"
+            *ngIf="editando && !isOverlayVisible">
+          </app-pessoa-cadastro-contato>
+        </div>
       </div>
+
       <div class="ui-g-12">
-        <button pButton label="Salvar" icon="fa fa-save" type="submit"
+        <button pButton label="Salvar" icon="fa fa-save" type="submit" *ngIf="!isOverlayVisible"
           class="ui-button-success" [disabled]="pessoaForm.invalid || isOverlayVisible" ></button>
+        <button pButton type="button" icon="fa fa-pencil" label="Editar" class="ui-button-success"
+          [routerLink]="['/pessoas', pessoa.codigo]" *ngIf="isOverlayVisible"></button>
         <button pButton label="Novo" icon="fa fa-file" type="button"
           (click)="nova(pessoaForm)"></button>
         <a routerLink="/pessoas">Voltar para a pesquisa</a>

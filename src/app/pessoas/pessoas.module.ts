@@ -1,3 +1,4 @@
+import { CardModule } from 'primeng/card';
 import { NgModule } from '@angular/core';
 
 import { DropdownModule } from 'primeng/dropdown';
@@ -6,12 +7,15 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
+import { DialogModule } from 'primeng/dialog';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 import { SharedModule } from './../shared/shared.module';
 import { PessoasRoutingModule } from './pessoas-routing.module';
 import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
+import { PessoaCadastroContatoComponent } from './pessoa-cadastro-contato/pessoa-cadastro-contato.component';
 
 @NgModule({
   imports: [
@@ -21,6 +25,9 @@ import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.compo
     TooltipModule,
     DropdownModule,
     InputMaskModule,
+    CardModule,
+    DialogModule,
+    KeyFilterModule,
 
     SharedModule,
     PessoasRoutingModule,
@@ -28,7 +35,8 @@ import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.compo
   declarations: [
     PessoaCadastroComponent,
     PessoasPesquisaComponent,
-    PessoasGridComponent
+    PessoasGridComponent,
+    PessoaCadastroContatoComponent,
   ],
   exports: []
 })

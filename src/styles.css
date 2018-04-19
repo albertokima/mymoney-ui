@@ -84,3 +84,11 @@ a {
 .ui-sidebar-close {
   display: none;
 }
+
+.ui-card-title {
+  text-align: center;
+}
+
+.ui-dialog {
+  max-width: 640px;
+}

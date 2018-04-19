@@ -43,7 +43,7 @@ export class PessoaCadastroComponent implements OnInit {
   nova(form: FormControl) {
     form.reset();
 
-    setTimeout(function(){
+    setTimeout(function() {
       this.pessoa = new Pessoa();
       this.isOverlayVisible = false;
     }.bind(this), 1);
@@ -56,15 +56,11 @@ export class PessoaCadastroComponent implements OnInit {
   }
 
   get titulo(): string {
-    let titulo: string;
+    let titulo = 'Nova Pessoa';
     if (this.editando) {
-      if (this.isOverlayVisible) {
-        titulo = `Pessoa cód.: ${this.pessoa.codigo}`;
-      } else {
+      if (!this.isOverlayVisible) {
         titulo = 'Edição de Pessoa';
       }
-    } else {
-      titulo = 'Nova Pessoa';
     }
     this.title.setTitle(titulo);
 

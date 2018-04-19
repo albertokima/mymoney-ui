@@ -1,21 +1,23 @@
 <div class=container>
   <div class="ui-g">
-    <form autocomplete="off" (ngSubmit)="pesquisar()">
+    <form autocomplete="off" (ngSubmit)="pesquisar()" class="ui-g-12">
       <div class="ui-g-12">
         <h1>Lançamentos</h1>
       </div>
-      <div class="ui-g-12 ui-fluid">
+      <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Descrição</label>
         <input type="text" pInputText [autofocus]="true" name="descricao" [(ngModel)]="filtro.descricao">
       </div>
-      <div class="ui-g-12">
+      <div class="ui-g-12 ui-md-6">
         <label style="display: block">Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '100px'}"
-          name="dataVencimentoDe" [(ngModel)]="filtro.dataVencimentoDe"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '100px'}" [locale]="pt"
+          name="dataVencimentoDe" [(ngModel)]="filtro.dataVencimentoDe" [showButtonBar]="true">
+        </p-calendar>
 
         <label>até</label>
-        <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '100px'}"
-          name="dataVencimentoAte" [(ngModel)]="filtro.dataVencimentoAte"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '100px'}" [locale]="pt"
+          name="dataVencimentoAte" [(ngModel)]="filtro.dataVencimentoAte" [showButtonBar]="true">
+        </p-calendar>
       </div>
       <div class="ui-g-12">
         <button pButton type="submit" label="Pesquisar" icon="fa fa-search"></button>
